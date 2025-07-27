@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import '../styles/components/ScrollHide.scss';
 
 
 function HorizontallyScrollable({ children, className='' }) {
@@ -45,7 +46,7 @@ function HorizontallyScrollable({ children, className='' }) {
 
   return (
     <div
-      className={className}
+      className={`scroll-hide ${className}`}
       ref={scrollRef}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
