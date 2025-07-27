@@ -6,12 +6,21 @@
 
   .widget-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
+
+    overflow-x: auto;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+
     margin-top: 0.5rem;
     padding-top: 1.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .widget {
       position: relative;
@@ -27,6 +36,7 @@
       padding: 0.75rem;
       margin-right: 0.75rem;
 
+      flex: 0 0 auto;
       min-width: 115px;
 
       border: 1px solid var(--secondary-text-color);
@@ -57,6 +67,12 @@
           margin-left: 0.25rem;
         }
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .forecast-container {
+      padding: 0 1rem;
     }
   }
 }
