@@ -8,7 +8,7 @@ import Loader from './Loader';
 function Main() {
   const {loading, currentWeather, hourlyForecast, dailyForecast} = useContext(WeatherContext);
   
-  const limitedHourlyForecast = Array.isArray(hourlyForecast) ? hourlyForecast.slice(0, 12) : [];
+  const limitedHourlyForecast = Array.isArray(hourlyForecast) ? hourlyForecast.slice(0, 24) : [];
   const limitedDailyForecast = Array.isArray(dailyForecast) ? dailyForecast.slice(0, 14) : [];
 
   return (
