@@ -49,9 +49,11 @@ function HorizontallyScrollable({ children, className='' }) {
       ref={scrollRef}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
-      style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }} // Important for mobile
+      style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}
     >
       {children}
     </div>
   );
 }
+
+export default HorizontallyScrollable;
