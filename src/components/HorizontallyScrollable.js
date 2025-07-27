@@ -49,8 +49,7 @@ function HorizontallyScrollable({ children, className='' }) {
       className={`scroll-hide ${className}`}
       ref={scrollRef}
       onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-      style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}
+      style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', cursor: 'grab'}}
     >
       {children}
     </div>
