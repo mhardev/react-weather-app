@@ -1,47 +1,29 @@
-import { useRef } from "react"
+import { useRef, useState } from "react";
 import '../styles/components/ScrollHide.scss';
 
+function HorizontallyScrollable({ children, className = '' }) {
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-function HorizontallyScrollable({ children, className='' }) {
-    const scrollRef = useRef();
-
-    const handleMouseDown = (e) => {
+  const handleMouseDown = (e) => {
     e.preventDefault();
-    const startX = e.pageX;
-    const scrollLeft = scrollRef.current.scrollLeft;
-
-    const handleMouseMove = (e) => {
-      const x = e.pageX;
-      const walk = x - startX;
-      scrollRef.current.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleMouseUp = () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
   };
 
-  const handleTouchStart = (e) => {
-    const startX = e.touches[0].pageX;
-    const scrollLeft = scrollRef.current.scrollLeft;
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = x - startX;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
 
-    const handleTouchMove = (e) => {
-      const x = e.touches[0].pageX;
-      const walk = x - startX;
-      scrollRef.current.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleTouchEnd = () => {
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
+  const handleMouseUpOrLeave = () => {
+    setIsDragging(false);
   };
 
   return (
@@ -49,7 +31,15 @@ function HorizontallyScrollable({ children, className='' }) {
       className={`scroll-hide ${className}`}
       ref={scrollRef}
       onMouseDown={handleMouseDown}
-      style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', cursor: 'grab'}}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUpOrLeave}
+      onMouseLeave={handleMouseUpOrLeave}
+      style={{
+        overflowX: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        cursor: isDragging ? 'grabbing' : 'grab',
+        scrollBehavior: 'smooth',
+      }}
     >
       {children}
     </div>
