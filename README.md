@@ -64,3 +64,11 @@ The goal of this project is to offer a simple yet powerful weather interface usi
 ```bash
 git clone https://github.com/mhardev/react-weather-app.git
 cd react-weather-app
+```
+
+---
+
+## 👨‍💻 Developer
+
+Joshua Mhar M. Alcubilla  
+Web Developer
